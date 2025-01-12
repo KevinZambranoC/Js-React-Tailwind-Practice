@@ -7,7 +7,7 @@ import MyOrders from '../MyOrders/index.jsx';
 import NotFound from '../NotFound/index.jsx';
 import Navbar from  '../../Components/Navbar/index.jsx';
 import CheckoutSideMenu from '../../Components/CheckoutSideMenu/index.jsx';
-import SignIn from '../Signin/index.jsx';
+import SignIn from '../SignIn/index.jsx';
 import './App.css';
 
 const AppRoutes = () => {
