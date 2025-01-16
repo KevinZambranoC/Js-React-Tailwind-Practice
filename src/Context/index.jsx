@@ -3,6 +3,30 @@ import {  createContext, useState, useEffect } from "react";
 
 export const ShoppingCartContext = createContext()
 
+//initilize LocalStorage
+export const initializeLocalStorage = () => {
+
+    const accountInLocalStorage = localStorage.getItem('account')
+    const signOutInLocalStorage = localStorage.getItem('sign-out')
+    let parsedAccount
+    let parsedSignOut
+
+    if(!accountInLocalStorage){
+        localStorage.setItem('account', JSON.stringify({}))
+        parsedAccount = {}
+    } else {
+        parsedAccount = JSON.parse(accountInLocalStorage)
+    }
+
+    if(!signOutInLocalStorage){
+        localStorage.setItem('sign-out',JSON.stringify(false))
+        parsedSignOut = false
+    } else {
+        parsedSignOut = JSON.parse(signOutInLocalStorage)
+    }
+
+}
+
 export const ShoppingCartProvider = ({children}) => {
 
     useEffect(() => {
@@ -14,6 +38,12 @@ export const ShoppingCartProvider = ({children}) => {
         })
           .catch(error => console.error('Error fetching products:', error)); // Manejo de errores
     }, []);
+    
+    //My Account
+    const [account,setAccount] = useState({})
+
+    //Sign Out
+    const [singOut,setSignOut] = useState(false)
 
     //Product Detail  Open/Close
     const [ isProductDetailOpen, setIsProductDetailOpen ] = useState(false);
@@ -87,7 +117,7 @@ export const ShoppingCartProvider = ({children}) => {
     return(
         <ShoppingCartContext.Provider 
         value={{
-            count,setCount,openProductDetail,closeProductDetail, isProductDetailOpen,productToShow,setProductToShow, cartProducts, setCartProducts,isCheckoutSideMenuOpen,openCheckoutSideMenu,closeCheckoutSideMenu,order, setOrder,items,setItems,searchByTitle, setSearchByTitle,filteredItems,setFilteredItems,searchByCategory,setSearchByCategory
+            count,setCount,openProductDetail,closeProductDetail, isProductDetailOpen,productToShow,setProductToShow, cartProducts, setCartProducts,isCheckoutSideMenuOpen,openCheckoutSideMenu,closeCheckoutSideMenu,order, setOrder,items,setItems,searchByTitle, setSearchByTitle,filteredItems,setFilteredItems,searchByCategory,setSearchByCategory,account,setAccount,singOut,setSignOut
         }}>
             {children}
         </ShoppingCartContext.Provider>
